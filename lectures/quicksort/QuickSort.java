@@ -10,7 +10,8 @@ class QuickSort {
 
     private static int partition(int[] arr, int first, int last)
     {
-	int pivot = arr[(first + last)/2];
+	int pivot = arr[(first+last)/2];
+	// int pivot = arr[(first + last)/2];
 	int i = first - 1;
 	// index going left to right
 	int j = last + 1;
@@ -51,10 +52,10 @@ class QuickSort {
 
     public static void main(String[] argv) {
 	System.out.println("QuickSort: main()");
-	int input[] = {5,5,5,5,5};
+	int input[] = {5,1,5,2,5};
 	System.out.println("QuickSort: main: input = " + Arrays.toString(input));
 	quickSort(input);
-	System.out.println("QuickSort: main: input = " + Arrays.toString(input));
+	System.out.println("QuickSort: main: input(sorted) = " + Arrays.toString(input));
 	return;
     }
     
