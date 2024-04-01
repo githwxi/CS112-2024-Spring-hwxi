@@ -37,17 +37,11 @@ class QuickSort {
 	qSort(arr, 0, arr.length - 1);
     }
     private static void qSort(int[] arr, int first, int last) {
-	int split = partition(arr, first, last);
-	if (first < split) {
-	    // if left subarray has 2+ values
-	    qSort(arr, first, split);
-	    // sort it recursively!
-	}
-	if (last > split + 1) {
-	    // if right has 2+ values
-	    qSort(arr, split + 1, last);
-	    // sort it!
-	}
+	if (first + 1 >= last) return;
+	int split =
+	    partition(arr, first, last);
+	qSort(arr, first, split);
+	qSort(arr, split + 1, last);
     } 
 
     public static void main(String[] argv) {
