@@ -11,7 +11,7 @@ public class LinkedTree {
         private Node left;       // reference to the left child/subtree
         private Node right;      // reference to the right child/subtree
         
-        private Node(int key, Object data){
+        private Node(int key, Object data) {
             this.key = key;
             this.data = new LLList();
             this.data.addItem(data, 0);
@@ -27,23 +27,17 @@ public class LinkedTree {
     /* ************************ ************************ */
 
     public void inorderPrint() {
-	if (root != null) {
-	    inorderPrintTree(root);
-	}
+	inorderPrintTree(root); // HX: root may be null
 	System.out.println();
     }
 
     public void preorderPrint() {
-	if (root != null) {
-	    preorderPrintTree(root);
-	}
+	preorderPrintTree(root); // HX: root may be null
 	System.out.println();
     }
 
     public void postorderPrint() {
-	if (root != null) {
-	    postorderPrintTree(root);
-	}
+	postorderPrintTree(root); // HX: root may be null
 	System.out.println();
     }
     
@@ -54,7 +48,7 @@ public class LinkedTree {
 	    inorderPrintTree(root.left);
 	    System.out.print(root.key + " ");
 	    inorderPrintTree(root.right);
-	}	
+	}
     }
 
     private static void preorderPrintTree(Node root) {
@@ -91,17 +85,19 @@ public class LinkedTree {
     }
     
     private static Node searchTree(Node root, int key) {
-	/*
 	// HX: recursive version
 	if (root == null) return null;
 	if (key == root.key) return root;
 	if (key < root.key) {
+	    // HX: This is tail-recursive!
 	    return searchTree(root.left, key);
 	}
 	if (key > root.key) {
+	    // HX: This is tail-recursive!
 	    return searchTree(root.right, key);
 	}
-	*/
+	return null; // HX: this is DEADCODE!!!
+	/*
 	Node trav = root;
 	while (trav != null) {
 	    if (key < trav.key) {
@@ -113,6 +109,7 @@ public class LinkedTree {
 	    return trav; // HX: key is found!
 	}
 	return null; // HX: [key] is not found!
+	*/
     }
 
     /* ************************ ************************ */
@@ -140,9 +137,11 @@ public class LinkedTree {
 	    trav.data.addItem(item, 0); return;
 	}
 	if (key < trav.key) {
+	    // HX: this is tail-recursive
 	    insertTree(key, item, trav.left, trav); return;
 	}
 	if (key > trav.key) {
+	    // HX: this is tail-recursive
 	    insertTree(key, item, trav.right, trav); return;
 	}
     }
@@ -151,7 +150,7 @@ public class LinkedTree {
 
     public LLList delete(int key) {
 	if (root == null) return null;
-	Node parent = null;
+	Node parent = null; // HX: root != null
 	Node deletedNode = deleteHelper1(key, root, parent);
 	if (deletedNode == null) {
 	    return null;
@@ -159,6 +158,8 @@ public class LinkedTree {
 	    return deletedNode.data;
 	}
     }
+
+    /* ************************ ************************ */
 
     private Node deleteHelper1(int key, Node trav, Node parent) {
 	Node replaceNode = null;
@@ -188,10 +189,8 @@ public class LinkedTree {
 	if (key > trav.key) {
 	    return deleteHelper1(key, trav.right, trav);
 	}
-	return null; // HX-2024-04-11: this line is deadcode!!!
+	return null; // HX-2024-04-11: this line is DEADCODE!!!
     }
-
-    /* ************************ ************************ */
 
     private Node deleteHelper2(Node trav) {
 	// assert (trav != null);
@@ -233,9 +232,8 @@ public class LinkedTree {
 	    int[] keys = {37, 26, 42, 13, 35, 56, 30, 47, 70};
 	    tree.insertKeys(keys);
 
-	    tree.delete(26);
-	    tree.delete(35);
 	    tree.delete(37);
+	    tree.delete(42);
  
 	    tree.inorderPrint();
 	    tree.preorderPrint();
